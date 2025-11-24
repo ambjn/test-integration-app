@@ -4,14 +4,25 @@ import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
 import { Stack } from "expo-router";
 import { HeroUINativeProvider } from "heroui-native";
+import { ActivityIndicator } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 
 const RootStack = () => {
   const { isSignedIn, isLoaded } = useAuth();
-  console.log(isLoaded);
+
+
+  if (!isLoaded) return <ActivityIndicator />;
+
   return (
-    <Stack />
+    <Stack screenOptions={{ headerShown: false }}>
+      <Stack.Protected guard={!!isSignedIn}>
+        <Stack.Screen name="(home)" />
+      </Stack.Protected>
+      <Stack.Protected guard={!isSignedIn}>
+        <Stack.Screen name="(auth)/sign-in" />
+      </Stack.Protected>
+    </Stack>
   );
 }
 
