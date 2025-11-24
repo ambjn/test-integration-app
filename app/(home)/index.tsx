@@ -7,7 +7,7 @@ export default function Index() {
   const { user } = useUser();
   console.log(user);
   return (
-    <View className="flex-1 justify-center items-center ">
+    <View className="flex-1 justify-center items-center bg-background-tertiary gap-4">
       {isSignedIn && <Text>{user?.emailAddresses[0].emailAddress}</Text>}
       <Button onPress={() => signOut()}>Log Out</Button>
     </View>
