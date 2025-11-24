@@ -2,11 +2,15 @@ import "@/global.css";
 
 import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
+import { ConvexProvider, ConvexReactClient } from "convex/react";
 import { Stack } from "expo-router";
 import { HeroUINativeProvider } from "heroui-native";
 import { ActivityIndicator } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 
+const convex = new ConvexReactClient(process.env.EXPO_PUBLIC_CONVEX_URL!, {
+  unsavedChangesWarning: false,
+});
 
 const RootStack = () => {
   const { isSignedIn, isLoaded } = useAuth();
@@ -31,7 +35,9 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <HeroUINativeProvider>
         <ClerkProvider tokenCache={tokenCache}>
-          <RootStack />
+          <ConvexProvider client={convex}>
+            <RootStack />
+          </ConvexProvider>
         </ClerkProvider>
       </HeroUINativeProvider>
     </GestureHandlerRootView>
