@@ -1,4 +1,4 @@
-import { Text, View } from "react-native";
+import { Button, Text, View } from "react-native";
 
 export default function Index() {
   return (
@@ -9,7 +9,8 @@ export default function Index() {
         alignItems: "center",
       }}
     >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
+      <Text>Test Integration App</Text>
+      <Button title="Test Integration App" onPress={() => console.log("Test Integration App")} />
     </View>
   );
 }
