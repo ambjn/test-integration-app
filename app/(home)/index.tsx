@@ -20,6 +20,10 @@ export default function Index() {
 
       {isLoading ? <ActivityIndicator /> : getTodos?.map(({ _id, text }) => <Text key={_id}>{text}</Text>)}
       <Button onPress={() => addTodo({ text: "New Todo 1" })}>Add Todo</Button>
+
+
+      <Button onPress={() => fetch("https://tough-ermine-673.convex.site/ass").then(res => res.text()).then(console.log)}>Fetch</Button>
+
     </View>
   );
 }
