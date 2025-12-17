@@ -1,8 +1,9 @@
 import "@/global.css";
 
-import { ClerkProvider, useAuth } from '@clerk/clerk-expo';
+import { ClerkLoaded, ClerkProvider, useAuth } from '@clerk/clerk-expo';
 import { tokenCache } from '@clerk/clerk-expo/token-cache';
-import { ConvexProvider, ConvexReactClient } from "convex/react";
+import { ConvexReactClient } from "convex/react";
+import { ConvexProviderWithClerk } from "convex/react-clerk";
 import { Stack } from "expo-router";
 import { HeroUINativeProvider } from "heroui-native";
 import { ActivityIndicator } from "react-native";
@@ -35,9 +36,11 @@ export default function RootLayout() {
     <GestureHandlerRootView style={{ flex: 1 }}>
       <HeroUINativeProvider>
         <ClerkProvider tokenCache={tokenCache}>
-          <ConvexProvider client={convex}>
-            <RootStack />
-          </ConvexProvider>
+          <ClerkLoaded>
+            <ConvexProviderWithClerk client={convex} useAuth={useAuth}>
+              <RootStack />
+            </ConvexProviderWithClerk>
+          </ClerkLoaded>
         </ClerkProvider>
       </HeroUINativeProvider>
     </GestureHandlerRootView>
