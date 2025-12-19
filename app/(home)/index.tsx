@@ -23,6 +23,7 @@ export default function Index() {
 
 
       <Button onPress={() => fetch("https://tough-ermine-673.convex.site/ass").then(res => res.text()).then(console.log)}>Fetch</Button>
+      <Button onPress={() => console.log(getTodos)}>Print</Button>
 
     </View>
   );
